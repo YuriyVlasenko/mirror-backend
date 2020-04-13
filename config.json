@@ -1,0 +1,4 @@
+{
+  "apiUrlPrefix": "api",
+  "dbConnectionName": "mongodb://localhost:27017/mirrors"
+}
