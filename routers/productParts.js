@@ -5,9 +5,20 @@ let productPartsManager = require("../services/managers/productPartsManager");
 let { ensureThatFieldsHasValue } = require("../services/validators");
 let { handleOperationResult } = require("../services/httpHelpers");
 
+const mapProductParts = (rawArray) => {
+  const mapProductPart = (rawData) => {
+    let { _id, name } = rawData;
+    return {
+      id: _id, 
+      name
+    }
+  }
+  return rawArray.map(mapProductPart)
+}
+
 router.get("/", (req, res) => {
   let operation = productPartsManager.getItems();
-  handleOperationResult(operation, res);
+  handleOperationResult(operation, res, mapProductParts);
 });
 
 router.delete("/", (req, res) => {
