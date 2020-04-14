@@ -9,6 +9,7 @@ let {
   productCategoriesRouter,
 } = require("./productCategories");
 let { galleryModelName, galleryRouter } = require("./gallery");
+let { partnerModelName, partnerRouter } = require("./partners");
 
 const applyRouters = (app) => {
   app.use(
@@ -24,6 +25,7 @@ const applyRouters = (app) => {
     productCategoriesRouter
   );
   app.use(`/${config.apiUrlPrefix}/${galleryModelName}`, galleryRouter);
+  app.use(`/${config.apiUrlPrefix}/${partnerModelName}`, partnerRouter);
 };
 
 module.exports.applyRouters = applyRouters;
