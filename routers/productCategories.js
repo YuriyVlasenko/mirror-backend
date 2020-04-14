@@ -1,23 +1,25 @@
 let express = require("express");
 var httpStatus = require("http-status-codes");
 let router = express.Router();
-let productPartsManager = require("../services/managers/productPartsManager");
+let productCaregoriesManager = require("../services/managers/productCaregoriesManager");
 let { ensureThatFieldsHasValue } = require("../services/validators");
 let { handleOperationResult } = require("../services/httpHelpers");
 
 const mapItems = (rawArray) => {
   const mapItem = (rawData) => {
-    let { _id, name } = rawData;
+    let { _id, name, title, imageUrl } = rawData;
     return {
       id: _id,
       name,
+      title,
+      imageUrl,
     };
   };
   return rawArray.map(mapItem);
 };
 
 router.get("/", (req, res) => {
-  let operation = productPartsManager.getItems();
+  let operation = productCaregoriesManager.getItems();
   handleOperationResult(operation, res, mapItems);
 });
 
@@ -27,29 +29,42 @@ router.delete("/", (req, res) => {
   if (error) {
     return res.status(httpStatus.BAD_REQUEST).send(error);
   }
-  let operation = productPartsManager.removeItem(id);
+  let operation = productCaregoriesManager.removeItem(id);
   handleOperationResult(operation, res, () => true);
 });
 
 router.put("/", (req, res) => {
-  let { id, name } = req.body || {};
-  let error = ensureThatFieldsHasValue({ id, name }, ["id", "name"]);
+  let { id, name, title, imageUrl } = req.body || {};
+  let error = ensureThatFieldsHasValue({ id, name, title }, [
+    "id",
+    "name",
+    "title",
+  ]);
   if (error) {
     return res.status(httpStatus.BAD_REQUEST).send(error);
   }
-  let operation = productPartsManager.updateItem({ id, name });
+  let operation = productCaregoriesManager.updateItem({
+    id,
+    name,
+    title,
+    imageUrl,
+  });
   handleOperationResult(operation, res, () => true);
 });
 
 router.post("/", (req, res) => {
-  let { name } = req.body || {};
-  let error = ensureThatFieldsHasValue({ name }, ["name"]);
+  let { name, title, imageUrl } = req.body || {};
+  let error = ensureThatFieldsHasValue({ name, title }, ["name", "title"]);
   if (error) {
     return res.status(httpStatus.BAD_REQUEST).send(error);
   }
-  let operation = productPartsManager.createItem({ name });
+  let operation = productCaregoriesManager.createItem({
+    name,
+    title,
+    imageUrl,
+  });
   handleOperationResult(operation, res, () => true);
 });
 
-module.exports.productPartsRouter = router;
-module.exports.productPartsModelName = productPartsManager.getModelName();
+module.exports.productCategoriesRouter = router;
+module.exports.productCategoriesModelName = productCaregoriesManager.getModelName();
