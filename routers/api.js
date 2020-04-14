@@ -1,3 +1,4 @@
+let config = require("../config.json");
 let { productPartsRouter, productPartsModelName } = require("./productParts");
 let {
   productOptionsModelName,
@@ -7,7 +8,7 @@ let {
   productCategoriesModelName,
   productCategoriesRouter,
 } = require("./productCategories");
-let config = require("../config.json");
+let { galleryModelName, galleryRouter } = require("./gallery");
 
 const applyRouters = (app) => {
   app.use(
@@ -22,6 +23,7 @@ const applyRouters = (app) => {
     `/${config.apiUrlPrefix}/${productCategoriesModelName}`,
     productCategoriesRouter
   );
+  app.use(`/${config.apiUrlPrefix}/${galleryModelName}`, galleryRouter);
 };
 
 module.exports.applyRouters = applyRouters;
