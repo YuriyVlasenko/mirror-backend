@@ -12,6 +12,16 @@ let { galleryModelName, galleryRouter } = require("./gallery");
 let { partnerModelName, partnerRouter } = require("./partners");
 let { productModelName, productRouter } = require("./product");
 const applyRouters = (app) => {
+  // TODO: remove after delployed
+  app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization"
+    );
+    res.header("Access-Control-Allow-Methods", "POST,GET,OPTIONS,PUT,DELETE");
+    next();
+  });
   app.use(
     `/${config.apiUrlPrefix}/${productPartsModelName}`,
     productPartsRouter

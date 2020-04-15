@@ -38,8 +38,8 @@ router.get("/", (req, res) => {
   handleOperationResult(operation, res, mapItems);
 });
 
-router.delete("/", (req, res) => {
-  let { id } = req.body || {};
+router.delete("/:id", (req, res) => {
+  let { id } = req.params;
   let error = ensureThatFieldsHasValue({ id }, ["id"]);
   if (error) {
     return res.status(httpStatus.BAD_REQUEST).send(error);

@@ -12,6 +12,7 @@ class ProductCategoriesManager {
     return repository.createItem({ name, title, imageUrl });
   }
   updateItem(data) {
+    console.log("updateItem", data);
     let { id, name, title, imageUrl } = data;
     return repository.updateItem({ id, name, title, imageUrl });
   }

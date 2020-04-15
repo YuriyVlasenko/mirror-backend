@@ -23,8 +23,8 @@ router.get("/", (req, res) => {
   handleOperationResult(operation, res, mapItems);
 });
 
-router.delete("/", (req, res) => {
-  let { id } = req.body || {};
+router.delete("/:id", (req, res) => {
+  let { id } = req.params;
   let error = ensureThatFieldsHasValue({ id }, ["id"]);
   if (error) {
     return res.status(httpStatus.BAD_REQUEST).send(error);
@@ -34,6 +34,7 @@ router.delete("/", (req, res) => {
 });
 
 router.put("/", (req, res) => {
+  console.log("product category put", req.body);
   let { id, name, title, imageUrl } = req.body || {};
   let error = ensureThatFieldsHasValue({ id, name, title }, [
     "id",
