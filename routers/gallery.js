@@ -7,10 +7,10 @@ let { handleOperationResult } = require("../services/httpHelpers");
 
 const mapItems = (rawArray) => {
   const mapItem = (rawData) => {
-    let { _id, name, imageUrl } = rawData;
+    let { _id, title, imageUrl } = rawData;
     return {
       id: _id,
-      name,
+      title,
       imageUrl,
     };
   };
@@ -33,27 +33,27 @@ router.delete("/:id", (req, res) => {
 });
 
 router.put("/", (req, res) => {
-  let { id, name, imageUrl } = req.body || {};
-  let error = ensureThatFieldsHasValue({ id, name }, ["id", "name"]);
+  let { id, title, imageUrl } = req.body || {};
+  let error = ensureThatFieldsHasValue({ id, title }, ["id", "title"]);
   if (error) {
     return res.status(httpStatus.BAD_REQUEST).send(error);
   }
   let operation = galleryManager.updateItem({
     id,
-    name,
+    title,
     imageUrl,
   });
   handleOperationResult(operation, res, () => true);
 });
 
 router.post("/", (req, res) => {
-  let { name, imageUrl } = req.body || {};
-  let error = ensureThatFieldsHasValue({ name, title }, ["name"]);
+  let { title, imageUrl } = req.body || {};
+  let error = ensureThatFieldsHasValue({ title, imageUrl }, ["title"]);
   if (error) {
     return res.status(httpStatus.BAD_REQUEST).send(error);
   }
   let operation = galleryManager.createItem({
-    name,
+    title,
     imageUrl,
   });
   handleOperationResult(operation, res, () => true);

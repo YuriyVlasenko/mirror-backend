@@ -8,12 +8,12 @@ class GalleryManager {
     return repository.getAllItems();
   }
   createItem(data) {
-    let { name, imageUrl } = data;
-    return repository.createItem({ name, imageUrl });
+    let { title, imageUrl } = data;
+    return repository.createItem({ title, imageUrl });
   }
   updateItem(data) {
-    let { id, name, imageUrl } = data;
-    return repository.updateItem({ id, name, imageUrl });
+    let { id, title, imageUrl } = data;
+    return repository.updateItem({ id, title, imageUrl });
   }
   removeItem(id) {
     return repository.removeItem(id);

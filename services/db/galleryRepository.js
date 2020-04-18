@@ -1,6 +1,6 @@
 const Repository = require("./Repository");
 
 module.exports = new Repository("gallery", {
-  name: String,
+  title: String,
   imageUrl: String,
 });

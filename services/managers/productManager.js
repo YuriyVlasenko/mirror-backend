@@ -1,4 +1,4 @@
-let repository = require("../db/galleryRepository");
+let repository = require("../db/productRepository");
 
 class ProductManager {
   getModelName() {
@@ -9,6 +9,7 @@ class ProductManager {
   }
   createItem(data) {
     let {
+      title,
       description,
       categoryId,
       size,
@@ -18,6 +19,7 @@ class ProductManager {
       price,
     } = data;
     return repository.createItem({
+      title,
       description,
       categoryId,
       size,
@@ -30,6 +32,7 @@ class ProductManager {
   updateItem(data) {
     let {
       id,
+      title,
       description,
       categoryId,
       size,
@@ -40,6 +43,7 @@ class ProductManager {
     } = data;
     return repository.updateItem({
       id,
+      title,
       description,
       categoryId,
       size,

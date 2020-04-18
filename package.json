@@ -9,10 +9,12 @@
     "cookie-parser": "^1.4.5",
     "debug": "~2.6.9",
     "express": "^4.16.4",
+    "fs": "0.0.1-security",
     "http-errors": "~1.6.3",
     "http-status-codes": "^1.4.0",
     "mongoose": "^5.9.9",
     "morgan": "~1.9.1",
+    "multiparty": "^4.2.1",
     "pug": "2.0.0-beta11",
     "uuid": "^7.0.3"
   }

@@ -1,3 +1,3 @@
 const Repository = require("./Repository");
 
-module.exports = new Repository("productOptions", { name: String });
+module.exports = new Repository("productOption", { name: String });

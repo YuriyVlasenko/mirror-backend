@@ -4,6 +4,7 @@ let {
   productOptionsModelName,
   productOptionsRouter,
 } = require("./productOptions");
+let { imageModelName, imageRouter } = require("./image");
 let {
   productCategoriesModelName,
   productCategoriesRouter,
@@ -37,6 +38,7 @@ const applyRouters = (app) => {
   app.use(`/${config.apiUrlPrefix}/${galleryModelName}`, galleryRouter);
   app.use(`/${config.apiUrlPrefix}/${partnerModelName}`, partnerRouter);
   app.use(`/${config.apiUrlPrefix}/${productModelName}`, productRouter);
+  app.use(`/${config.apiUrlPrefix}/${imageModelName}`, imageRouter);
 };
 
 module.exports.applyRouters = applyRouters;
