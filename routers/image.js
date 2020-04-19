@@ -3,6 +3,7 @@ var httpStatus = require("http-status-codes");
 let router = express.Router();
 let { handleOperationResult, generateId } = require("../services/httpHelpers");
 let imageManager = require("../services/managers/imageManager");
+let { ensureThatFieldsHasValue } = require("../services/validators");
 
 router.delete("/:id", (req, res) => {
   let { id } = req.params;
@@ -10,7 +11,7 @@ router.delete("/:id", (req, res) => {
   if (error) {
     return res.status(httpStatus.BAD_REQUEST).send(error);
   }
-  imageManager.removeItem(id);
+  let operation = imageManager.removeItem(id);
   handleOperationResult(operation, res, () => true);
 });
 

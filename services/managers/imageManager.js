@@ -2,7 +2,8 @@ let fs = require("fs");
 let path = require("path");
 let multiparty = require("multiparty");
 const availableFormats = ["png", "jpg", "jpeg"];
-const folder = "../../public/images";
+const folderName = "images";
+const folderPath = `../../public/${folderName}`;
 class ImageManager {
   getModelName() {
     return "image";
@@ -20,7 +21,7 @@ class ImageManager {
           return reject("Can't parse filename");
         }
         var fileType = fileNamePaths[fileNamePaths.length - 1];
-        var filePath = `${folder}/${itemId}.${fileType}`;
+        var filePath = `${folderPath}/${itemId}.${fileType}`;
         try {
           var newFileName = path.resolve(__dirname, filePath);
           fs.createReadStream(file.path).pipe(
@@ -34,22 +35,19 @@ class ImageManager {
     });
   }
   removeItem(itemId) {
-    var filePathPrefix = `${folder}/${itemId}.`;
-    for (var i = 0; i < availableFormats.length; i++) {
-      var filePath = `${filePathPrefix}${availableFormats[i]}`;
-      var deletedFileName = path.resolve(__dirname, filePath);
-      fs.exists(deletedFileName, function (exists) {
-        if (exists) {
-          fs.unlink(deletedFileName, function (err) {
-            if (err) {
-              console.log(err);
-              return;
-            }
-            console.log("successfully deleted: " + deletedFileName);
-          });
-        }
-      });
-    }
+    var filePathPrefix = `${folderPath}/${itemId}`;
+    var deletedFileName = path.resolve(__dirname, filePathPrefix);
+    fs.exists(deletedFileName, function (exists) {
+      if (exists) {
+        fs.unlink(deletedFileName, function (err) {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          console.log("successfully deleted: " + deletedFileName);
+        });
+      }
+    });
     return Promise.resolve();
   }
 }
