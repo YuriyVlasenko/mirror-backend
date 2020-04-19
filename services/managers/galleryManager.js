@@ -18,6 +18,9 @@ class GalleryManager {
   removeItem(id) {
     return repository.removeItem(id);
   }
+  findItem(id) {
+    return repository.findItem(id);
+  }
 }
 
 module.exports = new GalleryManager();
