@@ -4,6 +4,7 @@ let router = express.Router();
 let partnersManager = require("../services/managers/partnersManager");
 let { ensureThatFieldsHasValue } = require("../services/validators");
 let { handleOperationResult } = require("../services/httpHelpers");
+let imageManager = require("../services/managers/imageManager");
 
 const mapItems = (rawArray) => {
   const mapItem = (rawData) => {
@@ -32,7 +33,15 @@ router.delete("/:id", (req, res) => {
   if (error) {
     return res.status(httpStatus.BAD_REQUEST).send(error);
   }
-  let operation = partnersManager.removeItem(id);
+  let operation = partnersManager.findItem(id).then((galleryItem) => {
+    return partnersManager.removeItem(id).then(() => {
+      let imageId = galleryItem && galleryItem.imageUrl;
+      if (imageId) {
+        return imageManager.removeItem(imageId);
+      }
+      return Promise.resolve(true);
+    });
+  });
   handleOperationResult(operation, res, () => true);
 });
 
