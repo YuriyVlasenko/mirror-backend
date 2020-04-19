@@ -4,7 +4,7 @@ let router = express.Router();
 let productManager = require("../services/managers/productManager");
 let { ensureThatFieldsHasValue } = require("../services/validators");
 let { handleOperationResult } = require("../services/httpHelpers");
-
+let imageManager = require("../services/managers/imageManager");
 const mapItems = (rawArray) => {
   const mapItem = (rawData) => {
     let {
@@ -44,7 +44,20 @@ router.delete("/:id", (req, res) => {
   if (error) {
     return res.status(httpStatus.BAD_REQUEST).send(error);
   }
-  let operation = productManager.removeItem(id);
+  let operation = productManager.findItem(id).then((product) => {
+    return productManager.removeItem(id).then(() => {
+      let imageUrls = (product && product.imageUrls) || [];
+      console.log("imageUrls", imageUrls);
+      let imagesToRemove = imageUrls.map((imageId) => {
+        console.log("image to delete", imageId);
+        if (!imageId) {
+          return Promise.resolve(null);
+        }
+        return imageManager.removeItem(imageId);
+      });
+      return Promise.all(imagesToRemove);
+    });
+  });
   handleOperationResult(operation, res, () => true);
 });
 

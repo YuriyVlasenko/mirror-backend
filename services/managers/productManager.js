@@ -7,6 +7,9 @@ class ProductManager {
   getItems() {
     return repository.getAllItems();
   }
+  findItem(id) {
+    return repository.findItem(id);
+  }
   createItem(data) {
     let {
       title,

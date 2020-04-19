@@ -19,7 +19,12 @@ class Repository {
     return this._model.deleteOne({ _id: id });
   }
   findItem(id) {
-    return this._model.find({ _id: id });
+    return this._model.find({ _id: id }).then((items) => {
+      if (items.length > 0) {
+        return items[0];
+      }
+      return null;
+    });
   }
 }
 
