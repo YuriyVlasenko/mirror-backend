@@ -4,6 +4,7 @@ let router = express.Router();
 let productCaregoriesManager = require("../services/managers/productCaregoriesManager");
 let { ensureThatFieldsHasValue } = require("../services/validators");
 let { handleOperationResult } = require("../services/httpHelpers");
+let imageManager = require("../services/managers/imageManager");
 
 const mapItems = (rawArray) => {
   const mapItem = (rawData) => {
@@ -29,7 +30,18 @@ router.delete("/:id", (req, res) => {
   if (error) {
     return res.status(httpStatus.BAD_REQUEST).send(error);
   }
-  let operation = productCaregoriesManager.removeItem(id);
+
+  let operation = productCaregoriesManager
+    .findItem(id)
+    .then((productCategory) => {
+      return productCaregoriesManager.removeItem(id).then(() => {
+        let imageId = productCategory && productCategory.imageUrl;
+        if (imageId) {
+          return imageManager.removeItem(imageId);
+        }
+        return Promise.resolve(true);
+      });
+    });
   handleOperationResult(operation, res, () => true);
 });
 
