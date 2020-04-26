@@ -10,6 +10,7 @@ let {
   productCategoriesRouter,
 } = require("./productCategories");
 let { galleryModelName, galleryRouter } = require("./gallery");
+let { orderModelName, orderRouter } = require("./order");
 let { partnerModelName, partnerRouter } = require("./partners");
 let { productModelName, productRouter } = require("./product");
 const applyRouters = (app) => {
@@ -39,6 +40,7 @@ const applyRouters = (app) => {
   app.use(`/${config.apiUrlPrefix}/${partnerModelName}`, partnerRouter);
   app.use(`/${config.apiUrlPrefix}/${productModelName}`, productRouter);
   app.use(`/${config.apiUrlPrefix}/${imageModelName}`, imageRouter);
+  app.use(`/${config.apiUrlPrefix}/${orderModelName}`, orderRouter);
 };
 
 module.exports.applyRouters = applyRouters;

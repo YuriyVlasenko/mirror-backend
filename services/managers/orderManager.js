@@ -1,4 +1,4 @@
-let repository = require("../db/galleryRepository");
+let repository = require("../db/orderRepository");
 
 class OrderManager {
   getModelName() {
@@ -17,6 +17,7 @@ class OrderManager {
       notes,
       total,
       products,
+      date,
     } = data;
     return repository.createItem({
       buyer,
@@ -26,6 +27,7 @@ class OrderManager {
       deliveryDepartment,
       notes,
       total,
+      date,
       products,
     });
   }
@@ -39,6 +41,7 @@ class OrderManager {
       deliveryDepartment,
       notes,
       total,
+      date,
       products,
     } = data;
     return repository.updateItem({
@@ -50,6 +53,7 @@ class OrderManager {
       deliveryDepartment,
       notes,
       total,
+      date,
       products,
     });
   }

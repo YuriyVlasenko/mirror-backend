@@ -10,6 +10,16 @@ class ProductManager {
   findItem(id) {
     return repository.findItem(id);
   }
+  getPrice(id) {
+    return this.findItem(id)
+      .then((product) => {
+        return (product && product.price) || 0;
+      })
+      .catch((error) => {
+        console.log(`getPrice for ${id}`, error);
+        return null;
+      });
+  }
   createItem(data) {
     let {
       title,

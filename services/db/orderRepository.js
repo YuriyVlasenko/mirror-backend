@@ -8,6 +8,7 @@ var OrderProduct = new mongoose.Schema({
 });
 
 module.exports = new Repository("order", {
+  date: String,
   buyer: String,
   phone: String,
   city: String,
