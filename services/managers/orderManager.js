@@ -27,6 +27,7 @@ class OrderManager {
       deliveryDepartment,
       notes,
       total,
+      status: 1,
       date,
       products,
     });
@@ -37,6 +38,7 @@ class OrderManager {
       buyer,
       phone,
       city,
+      status,
       region,
       deliveryDepartment,
       notes,
@@ -50,6 +52,7 @@ class OrderManager {
       phone,
       city,
       region,
+      status,
       deliveryDepartment,
       notes,
       total,

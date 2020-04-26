@@ -43,6 +43,7 @@ const mapItems = (rawArray) => {
       deliveryDepartment,
       notes,
       total,
+      status,
       date,
       products,
     } = rawData;
@@ -54,6 +55,7 @@ const mapItems = (rawArray) => {
       region,
       deliveryDepartment,
       notes,
+      status: status || 1,
       total,
       date,
       products: (products || []).map((product) => {
@@ -85,8 +87,17 @@ router.delete("/:id", (req, res) => {
 });
 
 router.put("/", (req, res) => {
-  let { id, buyer, phone, city, region, deliveryDepartment, notes, products } =
-    req.body || {};
+  let {
+    id,
+    buyer,
+    phone,
+    city,
+    region,
+    deliveryDepartment,
+    notes,
+    products,
+    status,
+  } = req.body || {};
   let error = ensureThatFieldsHasValue({ id, buyer, phone, city, region }, [
     "id",
     "buyer",
@@ -107,6 +118,7 @@ router.put("/", (req, res) => {
       region,
       deliveryDepartment,
       notes,
+      status,
       total: data.total,
       date: new Date().toISOString(),
       products: data.orderProducts,
