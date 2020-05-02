@@ -8,10 +8,11 @@ let imageManager = require("../services/managers/imageManager");
 
 const mapItems = (rawArray) => {
   const mapItem = (rawData) => {
-    let { _id, title, imageUrl } = rawData;
+    let { _id, title, imageUrl, order } = rawData;
     return {
       id: _id,
       title,
+      order,
       imageUrl,
     };
   };
@@ -42,7 +43,7 @@ router.delete("/:id", (req, res) => {
 });
 
 router.put("/", (req, res) => {
-  let { id, title, imageUrl } = req.body || {};
+  let { id, title, imageUrl, order } = req.body || {};
   let error = ensureThatFieldsHasValue({ id, title }, ["id", "title"]);
   if (error) {
     return res.status(httpStatus.BAD_REQUEST).send(error);
@@ -50,13 +51,14 @@ router.put("/", (req, res) => {
   let operation = galleryManager.updateItem({
     id,
     title,
+    order,
     imageUrl,
   });
   handleOperationResult(operation, res, () => true);
 });
 
 router.post("/", (req, res) => {
-  let { title, imageUrl } = req.body || {};
+  let { title, imageUrl, order } = req.body || {};
   let error = ensureThatFieldsHasValue({ title, imageUrl }, ["title"]);
   if (error) {
     return res.status(httpStatus.BAD_REQUEST).send(error);
@@ -64,6 +66,7 @@ router.post("/", (req, res) => {
   let operation = galleryManager.createItem({
     title,
     imageUrl,
+    order,
   });
   handleOperationResult(operation, res, () => true);
 });
