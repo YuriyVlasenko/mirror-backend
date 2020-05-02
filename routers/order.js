@@ -23,7 +23,7 @@ const calculateOrderProductsData = (orderProductsRaw) => {
     });
     let total = 0;
     items.forEach((p) => {
-      total += p.price;
+      total += p.total;
     });
     return {
       orderProducts: items,
