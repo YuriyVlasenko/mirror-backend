@@ -5,7 +5,11 @@ class GalleryManager {
     return repository.modelName;
   }
   getItems() {
-    return repository.getAllItems();
+    return repository.getAllItems().then((items) => {
+      return items.sort((a, b) => {
+        return a.order - b.order;
+      });
+    });
   }
   createItem(data) {
     let { title, imageUrl, order } = data;
