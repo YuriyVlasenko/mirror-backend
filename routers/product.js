@@ -76,7 +76,7 @@ router.put("/", (req, res) => {
     imageUrls,
     price,
   } = req.body || {};
-  let error = ensureThatFieldsHasValue({ id, title, categoryId, price }, [
+  let error = ensureThatFieldsHasValue({ id, title, categoryId, price, code }, [
     "id",
     "title",
     "code",
@@ -113,7 +113,7 @@ router.post("/", (req, res) => {
     imageUrls,
     price,
   } = req.body || {};
-  let error = ensureThatFieldsHasValue({ title, categoryId, price }, [
+  let error = ensureThatFieldsHasValue({ title, categoryId, price, code }, [
     "title",
     "code",
     "categoryId",
