@@ -9,6 +9,7 @@ const mapItems = (rawArray) => {
   const mapItem = (rawData) => {
     let {
       _id,
+      code,
       title,
       description,
       categoryId,
@@ -21,6 +22,7 @@ const mapItems = (rawArray) => {
     return {
       id: _id,
       title,
+      code,
       description,
       categoryId,
       size,
@@ -65,6 +67,7 @@ router.put("/", (req, res) => {
   let {
     id,
     title,
+    code,
     description,
     categoryId,
     size,
@@ -76,6 +79,7 @@ router.put("/", (req, res) => {
   let error = ensureThatFieldsHasValue({ id, title, categoryId, price }, [
     "id",
     "title",
+    "code",
     "categoryId",
     "price",
   ]);
@@ -86,6 +90,7 @@ router.put("/", (req, res) => {
     id,
     title,
     description,
+    code,
     categoryId,
     size,
     parts,
@@ -103,12 +108,14 @@ router.post("/", (req, res) => {
     categoryId,
     size,
     parts,
+    code,
     options,
     imageUrls,
     price,
   } = req.body || {};
   let error = ensureThatFieldsHasValue({ title, categoryId, price }, [
     "title",
+    "code",
     "categoryId",
     "price",
   ]);
@@ -120,6 +127,7 @@ router.post("/", (req, res) => {
     description,
     categoryId,
     size,
+    code,
     parts,
     options,
     imageUrls,
