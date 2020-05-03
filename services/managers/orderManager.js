@@ -5,7 +5,11 @@ class OrderManager {
     return repository.modelName;
   }
   getItems() {
-    return repository.getAllItems();
+    return repository.getAllItems().then((items) => {
+      return items.sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      });
+    });
   }
   createItem(data) {
     let {
