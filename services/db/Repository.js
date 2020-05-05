@@ -26,6 +26,14 @@ class Repository {
       return null;
     });
   }
+  findItemByParams(conditions) {
+    return this._model.find(conditions).then((items) => {
+      if (items.length > 0) {
+        return items[0];
+      }
+      return null;
+    });
+  }
 }
 
 module.exports = Repository;

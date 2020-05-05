@@ -1,4 +1,5 @@
 {
   "apiUrlPrefix": "api",
-  "dbConnectionName": "mongodb://localhost:27017/mirrors"
+  "dbConnectionName": "mongodb://localhost:27017/mirrors",
+  "secretKey": "mirrors2020angularProject"
 }

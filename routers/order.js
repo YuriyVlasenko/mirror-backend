@@ -5,6 +5,7 @@ let orderManager = require("../services/managers/orderManager");
 let productManager = require("../services/managers/productManager");
 let { ensureThatFieldsHasValue } = require("../services/validators");
 let { handleOperationResult } = require("../services/httpHelpers");
+let { checkAuthToken } = require("./auth");
 
 const calculateOrderProductsData = (orderProductsRaw) => {
   let orderProductsPromises = orderProductsRaw.map((orderProduct) => {
@@ -71,12 +72,12 @@ const mapItems = (rawArray) => {
   return rawArray.map(mapItem);
 };
 
-router.get("/", (req, res) => {
+router.get("/", checkAuthToken, (req, res) => {
   let operation = orderManager.getItems();
   handleOperationResult(operation, res, mapItems);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", checkAuthToken, (req, res) => {
   let { id } = req.params;
   let error = ensureThatFieldsHasValue({ id }, ["id"]);
   if (error) {
@@ -86,7 +87,7 @@ router.delete("/:id", (req, res) => {
   handleOperationResult(operation, res, () => true);
 });
 
-router.put("/", (req, res) => {
+router.put("/", checkAuthToken, (req, res) => {
   let {
     id,
     buyer,

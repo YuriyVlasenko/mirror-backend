@@ -13,6 +13,8 @@ let { galleryModelName, galleryRouter } = require("./gallery");
 let { orderModelName, orderRouter } = require("./order");
 let { partnerModelName, partnerRouter } = require("./partners");
 let { productModelName, productRouter } = require("./product");
+let { authRouter, authModelName } = require("./auth");
+
 const applyRouters = (app) => {
   // TODO: remove after delployed
   app.use(function (req, res, next) {
@@ -24,6 +26,7 @@ const applyRouters = (app) => {
     res.header("Access-Control-Allow-Methods", "POST,GET,OPTIONS,PUT,DELETE");
     next();
   });
+  app.use(`/${authModelName}/`, authRouter);
   app.use(
     `/${config.apiUrlPrefix}/${productPartsModelName}`,
     productPartsRouter
