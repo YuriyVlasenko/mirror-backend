@@ -46,7 +46,6 @@ router.delete("/:id", (req, res) => {
 });
 
 router.put("/", (req, res) => {
-  console.log("product category put", req.body);
   let { id, name, title, imageUrl } = req.body || {};
   let error = ensureThatFieldsHasValue({ id, name, title }, [
     "id",

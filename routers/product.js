@@ -49,9 +49,7 @@ router.delete("/:id", (req, res) => {
   let operation = productManager.findItem(id).then((product) => {
     return productManager.removeItem(id).then(() => {
       let imageUrls = (product && product.imageUrls) || [];
-      console.log("imageUrls", imageUrls);
       let imagesToRemove = imageUrls.map((imageId) => {
-        console.log("image to delete", imageId);
         if (!imageId) {
           return Promise.resolve(null);
         }

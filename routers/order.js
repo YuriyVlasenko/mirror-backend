@@ -110,7 +110,6 @@ router.put("/", checkAuthToken, (req, res) => {
     return res.status(httpStatus.BAD_REQUEST).send(error);
   }
   let operation = calculateOrderProductsData(products).then((data) => {
-    console.log("orderProducts data", data);
     return orderManager.updateItem({
       id,
       buyer,

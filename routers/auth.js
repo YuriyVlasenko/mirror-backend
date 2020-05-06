@@ -20,7 +20,6 @@ router.post("/login", (req, res) => {
       return res.sendStatus(httpStatus.BAD_REQUEST);
     })
     .catch((error) => {
-      console.log(error);
       return res.sendStatus(httpStatus.BAD_REQUEST);
     });
 });
@@ -31,15 +30,11 @@ const checkAuthToken = (req, res, next) => {
     return res.sendStatus(httpStatus.UNAUTHORIZED);
   }
   let parts = authorizationHeader.split(" ");
-  console.log("parts", parts);
   if (parts.length !== 2) {
     return res.sendStatus(httpStatus.UNAUTHORIZED);
   }
   let token = parts[1];
-  console.log("token", token);
   jwt.verify(token, secretKey, function (err, decoded) {
-    console.log("err", err);
-    console.log("decoded", decoded);
     if (err) {
       return res.sendStatus(httpStatus.UNAUTHORIZED);
     }
