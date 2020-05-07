@@ -5,7 +5,11 @@ class ProductManager {
     return repository.modelName;
   }
   getItems() {
-    return repository.getAllItems();
+    return repository.getAllItems().then((items) => {
+      return items.sort((a, b) => {
+        return Number(a.code) - Number(b.code);
+      });
+    });
   }
   findItem(id) {
     return repository.findItem(id);
