@@ -4,8 +4,9 @@ let router = express.Router();
 let { handleOperationResult, generateId } = require("../services/httpHelpers");
 let imageManager = require("../services/managers/imageManager");
 let { ensureThatFieldsHasValue } = require("../services/validators");
+let { checkAuthToken } = require('./auth')
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", checkAuthToken, (req, res) => {
   let { id } = req.params;
   let error = ensureThatFieldsHasValue({ id }, ["id"]);
   if (error) {
@@ -15,7 +16,7 @@ router.delete("/:id", (req, res) => {
   handleOperationResult(operation, res, () => true);
 });
 
-router.post("/", (req, res) => {
+router.post("/", checkAuthToken, (req, res) => {
   var itemId = generateId();
   let operation = imageManager.createItem(itemId, req);
   handleOperationResult(operation, res);

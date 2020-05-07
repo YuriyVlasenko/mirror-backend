@@ -4,6 +4,7 @@ let router = express.Router();
 let galleryManager = require("../services/managers/galleryManager");
 let { ensureThatFieldsHasValue } = require("../services/validators");
 let { handleOperationResult } = require("../services/httpHelpers");
+let { checkAuthToken } = require('./auth')
 let imageManager = require("../services/managers/imageManager");
 
 const mapItems = (rawArray) => {
@@ -24,7 +25,7 @@ router.get("/", (req, res) => {
   handleOperationResult(operation, res, mapItems);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id",  checkAuthToken, (req, res) => {
   let { id } = req.params;
   let error = ensureThatFieldsHasValue({ id }, ["id"]);
   if (error) {
@@ -42,7 +43,7 @@ router.delete("/:id", (req, res) => {
   handleOperationResult(operation, res, () => true);
 });
 
-router.put("/", (req, res) => {
+router.put("/", checkAuthToken, (req, res) => {
   let { id, title, imageUrl, order } = req.body || {};
   let error = ensureThatFieldsHasValue({ id, title }, ["id", "title"]);
   if (error) {
@@ -57,7 +58,7 @@ router.put("/", (req, res) => {
   handleOperationResult(operation, res, () => true);
 });
 
-router.post("/", (req, res) => {
+router.post("/", checkAuthToken, (req, res) => {
   let { title, imageUrl, order } = req.body || {};
   let error = ensureThatFieldsHasValue({ title, imageUrl }, ["title"]);
   if (error) {

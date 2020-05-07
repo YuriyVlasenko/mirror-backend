@@ -4,6 +4,7 @@ let router = express.Router();
 let productPartsManager = require("../services/managers/productPartsManager");
 let { ensureThatFieldsHasValue } = require("../services/validators");
 let { handleOperationResult } = require("../services/httpHelpers");
+let { checkAuthToken } = require("./auth");
 
 const mapItems = (rawArray) => {
   const mapItem = (rawData) => {
@@ -21,7 +22,7 @@ router.get("/", (req, res) => {
   handleOperationResult(operation, res, mapItems);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", checkAuthToken, (req, res) => {
   let { id } = req.params;
   let error = ensureThatFieldsHasValue({ id }, ["id"]);
   if (error) {
@@ -31,7 +32,7 @@ router.delete("/:id", (req, res) => {
   handleOperationResult(operation, res, () => true);
 });
 
-router.put("/", (req, res) => {
+router.put("/", checkAuthToken,(req, res) => {
   let { id, name } = req.body || {};
   let error = ensureThatFieldsHasValue({ id, name }, ["id", "name"]);
   if (error) {
@@ -41,7 +42,7 @@ router.put("/", (req, res) => {
   handleOperationResult(operation, res, () => true);
 });
 
-router.post("/", (req, res) => {
+router.post("/", checkAuthToken, (req, res) => {
   let { name } = req.body || {};
   let error = ensureThatFieldsHasValue({ name }, ["name"]);
   if (error) {
