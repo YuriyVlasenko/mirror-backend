@@ -16,7 +16,10 @@ let { productModelName, productRouter } = require("./product");
 let { authRouter, authModelName } = require("./auth");
 
 const applyRouters = (app) => {
-  // TODO: remove after delployed
+  app.get('/admin', (req, res) => {
+    return res.redirect('/?target=admin')
+  })
+  /*
   app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
     res.header(
@@ -25,7 +28,7 @@ const applyRouters = (app) => {
     );
     res.header("Access-Control-Allow-Methods", "POST,GET,OPTIONS,PUT,DELETE");
     next();
-  });
+  });*/
   app.use(`/${authModelName}/`, authRouter);
   app.use(
     `/${config.apiUrlPrefix}/${productPartsModelName}`,
